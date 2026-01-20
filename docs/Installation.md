@@ -24,10 +24,10 @@ Click [here](https://github.com/jkroepke/helm-secrets/releases/latest) for the l
 
 ```bash
 SECRETS_PLUGIN_VERSION=4.7.5
-PLUGIN_GPG_KEYRING=https://github.com/jkroepke.gpg
+SECRETS_PLUGIN_GPG_KEY=https://github.com/jkroepke.gpg
 
 TEMP_KEYRING=$(mktemp).gpg
-curl -sSL $PLUGIN_GPG_KEYRING | gpg --dearmor > $TEMP_KEYRING
+curl -sSL $SECRETS_PLUGIN_GPG_KEY | gpg --dearmor > $TEMP_KEYRING
 
 helm plugin install --keyring=$TEMP_KEYRING https://github.com/jkroepke/helm-secrets/releases/download/v$SECRETS_PLUGIN_VERSION/secrets-$SECRETS_PLUGIN_VERSION.tgz
 helm plugin install --keyring=$TEMP_KEYRING https://github.com/jkroepke/helm-secrets/releases/download/v$SECRETS_PLUGIN_VERSION/secrets-getter-$SECRETS_PLUGIN_VERSION.tgz
