@@ -23,9 +23,17 @@ The `--version` flag is not supported in Helm 4, so you need to specify the exac
 Click [here](https://github.com/jkroepke/helm-secrets/releases/latest) for the latest version.
 
 ```bash
-helm plugin install https://github.com/jkroepke/helm-secrets/releases/download/v4.7.4/secrets-4.7.4.tgz
-helm plugin install https://github.com/jkroepke/helm-secrets/releases/download/v4.7.4/secrets-getter-4.7.4.tgz
-helm plugin install https://github.com/jkroepke/helm-secrets/releases/download/v4.7.4/secrets-post-renderer-4.7.4.tgz
+SECRETS_PLUGIN_VERSION=4.7.5
+PLUGIN_GPG_KEYRING=https://github.com/jkroepke.gpg
+
+TEMP_KEYRING=$(mktemp).gpg
+curl -sSL $PLUGIN_GPG_KEYRING | gpg --dearmor > $TEMP_KEYRING
+
+helm plugin install --keyring=$TEMP_KEYRING https://github.com/jkroepke/helm-secrets/releases/download/v$SECRETS_PLUGIN_VERSION/secrets-$SECRETS_PLUGIN_VERSION.tgz
+helm plugin install --keyring=$TEMP_KEYRING https://github.com/jkroepke/helm-secrets/releases/download/v$SECRETS_PLUGIN_VERSION/secrets-getter-$SECRETS_PLUGIN_VERSION.tgz
+helm plugin install --keyring=$TEMP_KEYRING https://github.com/jkroepke/helm-secrets/releases/download/v$SECRETS_PLUGIN_VERSION/secrets-post-renderer-$SECRETS_PLUGIN_VERSION.tgz
+
+rm $TEMP_KEYRING
 ```
 
 ### Install latest version
